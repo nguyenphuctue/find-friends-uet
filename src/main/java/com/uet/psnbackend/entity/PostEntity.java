@@ -25,8 +25,6 @@ public class PostEntity {
 
     private String content;
 
-    private String image;
-
     private Instant createdAt;
 
     List<String> love = new ArrayList<>();

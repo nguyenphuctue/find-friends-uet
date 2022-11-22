@@ -16,15 +16,24 @@ public class StorageService {
     @Autowired
     private StorageRepository storageRepository;
 
-    public String uploadImage(MultipartFile file) throws IOException {
+    public ResponseObjectService uploadImage(MultipartFile file) throws IOException {
         ImageDataEntity imageData = storageRepository.save(ImageDataEntity.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
                 .imageData(ImageUtils.compressImage(file.getBytes())).build());
+        ResponseObjectService responseObj = new ResponseObjectService();
         if (imageData != null) {
-            return "file uploaded successfully : " + file.getOriginalFilename();
+            responseObj.setStatus("success");
+            responseObj.setMessage("upload image successful");
+            responseObj.setPayload(imageData.getId());
+            return responseObj;
+        } else {
+            responseObj.setStatus("fail");
+            responseObj.setMessage("upload image fail");
+            responseObj.setPayload("null");
+            return responseObj;
         }
-        return null;
+
     }
 
     public byte[] downloadImage(String fileName) {
