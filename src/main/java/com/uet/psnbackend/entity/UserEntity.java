@@ -31,4 +31,6 @@ public class UserEntity {
     List<String> following = new ArrayList<>();
 
     List<String> follower = new ArrayList<>();
+
+    private String idImage;
 }
