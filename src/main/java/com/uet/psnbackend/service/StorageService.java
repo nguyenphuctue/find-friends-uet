@@ -1,5 +1,6 @@
 package com.uet.psnbackend.service;
 
+import com.uet.psnbackend.entity.IdObjectEntity;
 import com.uet.psnbackend.entity.ImageDataEntity;
 import com.uet.psnbackend.repository.StorageRepository;
 import com.uet.psnbackend.util.ImageUtils;
@@ -23,9 +24,10 @@ public class StorageService {
                 .imageData(ImageUtils.compressImage(file.getBytes())).build());
         ResponseObjectService responseObj = new ResponseObjectService();
         if (imageData != null) {
+            IdObjectEntity idObjectEntity= new IdObjectEntity(imageData.getId());
             responseObj.setStatus("success");
             responseObj.setMessage("upload image successful");
-            responseObj.setPayload(imageData.getId());
+            responseObj.setPayload(idObjectEntity);
             return responseObj;
         } else {
             responseObj.setStatus("fail");

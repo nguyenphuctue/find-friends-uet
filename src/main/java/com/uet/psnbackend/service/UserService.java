@@ -186,6 +186,15 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public ResponseObjectService searchUser(String username) {
+        List<UserEntity> users = userRepo.findByUsername(username);
+        ResponseObjectService responseObj = new ResponseObjectService();
+        responseObj.setStatus("success");
+        responseObj.setMessage("Search user successful");
+        responseObj.setPayload(users);
+        return  responseObj;
+    }
+
     public ResponseObjectService followUser(DoubleIdObjectEntity doubleId) {
         // id1 - followed user, id2 - follower
 
