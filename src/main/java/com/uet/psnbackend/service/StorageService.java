@@ -2,6 +2,7 @@ package com.uet.psnbackend.service;
 
 import com.uet.psnbackend.entity.IdObjectEntity;
 import com.uet.psnbackend.entity.ImageDataEntity;
+import com.uet.psnbackend.entity.ImageLinkEntity;
 import com.uet.psnbackend.repository.StorageRepository;
 import com.uet.psnbackend.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class StorageService {
                 .imageData(ImageUtils.compressImage(file.getBytes())).build());
         ResponseObjectService responseObj = new ResponseObjectService();
         if (imageData != null) {
-            IdObjectEntity idObjectEntity= new IdObjectEntity(imageData.getId());
+            ImageLinkEntity imageLinkEntity= new ImageLinkEntity("http://localhost:8080/findfriend.com/image/" + imageData.getId());
             responseObj.setStatus("success");
             responseObj.setMessage("upload image successful");
-            responseObj.setPayload(idObjectEntity);
+            responseObj.setPayload(imageLinkEntity);
             return responseObj;
         } else {
             responseObj.setStatus("fail");

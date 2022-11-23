@@ -33,5 +33,5 @@ public class PostEntity {
 
     List<CommentEntity> comment = new ArrayList<>();
 
-    List<String> idImages = new ArrayList<>();
+    List<String> images = new ArrayList<>();
 }

@@ -34,5 +34,5 @@ public class UserEntity {
 
     List<String> follower = new ArrayList<>();
 
-    private String idImage;
+    private String image;
 }
