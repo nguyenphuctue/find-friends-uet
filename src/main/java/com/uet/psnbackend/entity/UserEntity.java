@@ -35,4 +35,14 @@ public class UserEntity {
     List<String> follower = new ArrayList<>();
 
     private String image;
+
+    public UserEntity(String id, String username,String firstName,String lastName,String email,String role,String image){
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+        this.image = image;
+    }
 }

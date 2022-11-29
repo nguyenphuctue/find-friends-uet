@@ -42,12 +42,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/api/v1/users/save", "/api/v1/users/signin","/findfriend.com/image/{idImage}").permitAll()
+        http.csrf().disable().authorizeRequests().antMatchers(
+                "/api/v1/users/save",
+                        "/api/v1/users/signin",
+                        "/findfriend.com/image/{idImage}",
+                        "/api/v1/users/loginWithGoogle/{idToken}").permitAll()
                 .antMatchers("/api/v1/getdata").hasAuthority("user")
                 .anyRequest().authenticated().and().exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.authorizeHttpRequests()
+//                .anyRequest().authenticated()
+//                .and().oauth2Login();
     }
 
     

@@ -1,5 +1,7 @@
 package com.uet.psnbackend.controller;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -85,6 +87,18 @@ public class UserController {
         }
     }
 
+    @GetMapping("users/loginWithGoogle/{idToken}")
+    public ResponseEntity<ResponseObjectService> loginWithGoogle(@PathVariable String idToken) throws GeneralSecurityException, IOException {
+        UserEntity user = userService.loginWithGoogle(idToken);
+        if(user != null) {
+            String token = jwtUtil.generateToken(user.getEmail());
+            user.setPassword("");
+            return new ResponseEntity<ResponseObjectService>(new ResponseObjectService("success", "authenticated", new AuthorizedEntity(user, token)), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<ResponseObjectService>(new ResponseObjectService("fail", "unauthenticated", null), HttpStatus.OK);
+        }
+    }
+
     @PutMapping("/users/update")
     public ResponseEntity<ResponseObjectService> update(@RequestBody UserEntity inputUser) {
         return new ResponseEntity<ResponseObjectService>(userService.update(inputUser), HttpStatus.OK);
@@ -95,10 +109,20 @@ public class UserController {
         return new ResponseEntity<ResponseObjectService>(userService.searchUser(username), HttpStatus.OK);
     }
 
+//    @GetMapping("/getdata")
+//    public ResponseEntity<String> testAfterLogin(Principal p) {
+//        return ResponseEntity.ok("Welcome. You are: " + p.getName());
+//    }
+
     @GetMapping("/getdata")
-    public ResponseEntity<String> testAfterLogin(Principal p) {
-        return ResponseEntity.ok("Welcome. You are: " + p.getName());
+    public Principal testAfterLogin(Principal p) {
+        System.out.println(p.getName());
+        return p;
     }
 
+    @GetMapping()
+    public String testAfterLogin() {
+        return "Hello";
+    }
 
 }
