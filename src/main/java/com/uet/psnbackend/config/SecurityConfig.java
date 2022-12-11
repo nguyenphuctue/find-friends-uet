@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests().antMatchers(
                 "/api/v1/users/save",
                         "/api/v1/users/signin",
+                        "/findfriend.com/image",
                         "/findfriend.com/image/{idImage}",
                         "/api/v1/users/loginWithGoogle/{idToken}").permitAll()
                 .antMatchers("/api/v1/getdata").hasAuthority("user")
